@@ -10,7 +10,7 @@ Progettata con un'interfaccia utente moderna, esperienze fluide e feature avanza
 RoomBooker offre due esperienze distinte:
 
 - **Cliente**: può registrarsi, esplorare strutture, prenotare soggiorni, lasciare recensioni.
-- **Host**: può registrare strutture, gestire prenotazioni e analizzare i ricavi.
+- **Host**: può registrare strutture, gestire prenotazioni.
 
 Grazie all'integrazione con **Leaflet**, **Cloudinary**, **Google OAuth**, e **OpenCage Geocoding**, l'app offre funzionalità avanzate come:
 - mappe interattive geolocalizzate
@@ -52,12 +52,7 @@ Grazie all'integrazione con **Leaflet**, **Cloudinary**, **Google OAuth**, e **O
 - Visualizzazione media voti
 - Cancellazione recensione propria
 
-### 📊 Dashboard host
-- Visualizza:
-  - prenotazioni ricevute
-  - numero di notti totali
-  - entrate generate (calcolo live)
-- Azioni rapide: elimina struttura, modifica copertina, aggiorna descrizione
+
 
 ### 🧑‍🎨 UI e UX
 - Completamente responsive
