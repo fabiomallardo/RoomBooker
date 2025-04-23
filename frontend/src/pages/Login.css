@@ -3,8 +3,8 @@
     background: linear-gradient(135deg, #f8f9fa, #dee2e6);
   }
   
-  /* Card opaca effetto vetro */
-  .login-card {
+
+/*   .login-card {
     width: 100%;
     max-width: 400px;
     background: rgba(255, 255, 255, 0.95);
@@ -12,7 +12,7 @@
     border: 1px solid rgba(255, 255, 255, 0.3);
     border-radius: 16px;
     animation: fadeInUp 0.8s ease-out;
-  }
+  } */
   
   /* Animazione entrata */
   @keyframes fadeInUp {
@@ -25,13 +25,13 @@
       transform: translateY(0);
     }
   }
-/*   
+
 
   .login-card input {
     border-radius: 12px;
     padding: 0.75rem;
     transition: all 0.3s ease;
-  } */
+  } 
   
   .login-card input:focus {
     border-color: #dc3545;
