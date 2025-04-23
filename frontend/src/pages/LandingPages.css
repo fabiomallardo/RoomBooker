@@ -1,0 +1,106 @@
+/* Sfondo con gradiente animato */
+.landing-fullscreen {
+  overflow: hidden;
+  background: linear-gradient(135deg, #f8f9fa, #ffffff, #f8f9fa);
+  background-size: 400% 400%;
+  animation: gradientMove 10s ease infinite;
+}
+
+@keyframes gradientMove {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Typewriter smooth underline */
+.typewriter-text {
+  position: relative;
+}
+
+
+
+@keyframes blink {
+  to {
+    visibility: hidden;
+  }
+}
+
+/* Animazioni già viste prima */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.hero-clean {
+  max-width: 600px;
+  padding: 2rem;
+  animation: fadeInUp 1s ease-out forwards;
+  opacity: 0;
+}
+
+.hero-clean h1 {
+  animation: fadeInUp 0.8s ease-out forwards;
+  animation-delay: 0.1s;
+  opacity: 0;
+}
+
+.hero-clean p {
+  animation: fadeInUp 1s ease-out forwards;
+  animation-delay: 0.3s;
+  opacity: 0;
+}
+
+.hero-clean .btn {
+  animation: fadeInUp 1.2s ease-out forwards;
+  animation-delay: 0.5s;
+  opacity: 0;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hero-clean .btn:hover {
+  transform: translateY(-3px) scale(1.03);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+}
+
+.typewriter-text {
+  position: relative;
+}
+
+.typewriter-text.blinking::after {
+  content: "";
+  position: absolute;
+  width: 2px;
+  height: 100%;
+  background-color: #212529;
+  animation: blink 0.7s steps(2, start) infinite;
+  right: -8px;
+  top: 0;
+}
+
+@keyframes blink {
+  to {
+    visibility: hidden;
+  }
+}
+
+.features .rounded {
+  transition: box-shadow 0.3s ease;
+}
+
+.features .rounded:hover {
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+}
+
+.features i {
+  transition: transform 0.3s ease;
+}
+
+.features i:hover {
+  transform: scale(1.15);
+}

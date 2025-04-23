@@ -1,0 +1,136 @@
+:root {
+  --accent: #dc3545;
+  --accent-light: #f8d7da;
+  --text-muted: #6c757d;
+  --radius: 12px;
+  --transition: all 0.3s ease;
+  --shadow-soft: 0 12px 28px rgba(0, 0, 0, 0.08);
+}
+
+/* Title & Subtitle */
+.home-title {
+  font-size: 2.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 0.3rem;
+  line-height: 1.2;
+  color: #212529;
+  animation: fadeInUp 0.7s ease forwards;
+}
+
+.home-title .highlight {
+  color: var(--accent);
+  border-bottom: 3px solid var(--accent);
+  padding-bottom: 4px;
+  display: inline-block;
+}
+
+.subtitle {
+  font-size: 1.05rem;
+  color: var(--text-muted);
+  margin-top: 0.5rem;
+  animation: fadeInUp 0.9s ease forwards;
+}
+
+/* Filter buttons */
+button.btn {
+  transition: var(--transition);
+  border-radius: 999px;
+  padding: 0.4rem 1.2rem;
+  font-weight: 500;
+}
+
+/* Card */
+.struttura-card {
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: #fff;
+  transition: var(--transition);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  animation: fadeInUp 0.5s ease forwards;
+}
+
+.struttura-card:hover {
+  transform: translateY(-6px) scale(1.01);
+  box-shadow: var(--shadow-soft);
+}
+
+/* Image */
+.struttura-img-wrapper {
+  overflow: hidden;
+  position: relative;
+  border-top-left-radius: var(--radius);
+  border-top-right-radius: var(--radius);
+}
+
+.struttura-img {
+  height: 220px;
+  width: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.struttura-card:hover .struttura-img {
+  transform: scale(1.07);
+}
+
+/* Badge */
+.struttura-type {
+  position: absolute;
+  top: 0.75rem;
+  left: 0.75rem;
+  padding: 6px 14px;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  background: rgba(255, 255, 255, 0.9);
+  color: var(--accent);
+  border: 1px solid var(--accent);
+  border-radius: 999px;
+  font-weight: 500;
+  backdrop-filter: blur(4px);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  transition: var(--transition);
+  animation: float 2s ease-in-out infinite;
+}
+
+/* Price tag */
+.price-tag {
+  font-weight: 700;
+  color: var(--accent);
+  font-size: 1.15rem;
+  margin-top: 0.5rem;
+}
+
+/* Animazioni */
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-3px);
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .home-title {
+    font-size: 2rem;
+  }
+
+  .struttura-img {
+    height: 180px;
+  }
+}

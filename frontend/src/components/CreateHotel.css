@@ -1,0 +1,64 @@
+.struttura-bg {
+    background: linear-gradient(135deg, #f8f9fa, #dee2e6);
+  }
+  
+  .struttura-card {
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    border-radius: 16px;
+    animation: fadeInUp 0.8s ease-out;
+  }
+  
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .struttura-card input,
+  .struttura-card textarea,
+  .struttura-card select {
+    border-radius: 12px;
+    padding: 0.65rem;
+    font-size: 0.95rem;
+    transition: border 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .struttura-card input:focus,
+  .struttura-card textarea:focus,
+  .struttura-card select:focus {
+    border-color: #dc3545;
+    box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+  }
+  
+  .struttura-card button {
+    border-radius: 12px;
+    padding: 0.6rem;
+    font-weight: 600;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+  
+  .struttura-card button:hover {
+    transform: translateY(-2px);
+    background-color: #c82333;
+  }
+  
+  .img-preview {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 12px;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease;
+  }
+  
+  .img-preview:hover {
+    transform: scale(1.05);
+  }
+  
