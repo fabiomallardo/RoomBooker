@@ -16,7 +16,6 @@
   .login-card input {
     border-radius: 12px;
     padding: 0.75rem;
-    transition: all 0.3s ease;
   } 
   
   .login-card input:focus {
@@ -27,11 +26,10 @@
   /* Bottone fluido */
   .login-card button {
     border-radius: 12px;
-    transition: background-color 0.3s ease, transform 0.2s ease;
+
   }
   
   .login-card button:hover {
-    transform: translateY(-2px);
     background-color: #c82333;
   }
   
