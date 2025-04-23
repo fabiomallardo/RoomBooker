@@ -7,10 +7,11 @@ import "./Profile.css";
 
 const API_URL = process.env.REACT_APP_API_URL;
 
-const resolveImgUrl = (imgPath) =>
-  imgPath?.startsWith("http")
-    ? imgPath
-    : `${API_URL}/${imgPath.replace(/^\/+/, '')}`; 
+const resolveImgUrl = (imgPath) => {
+  if (!imgPath) return "https://via.placeholder.com/150";
+  return imgPath; 
+};
+
 
 
 

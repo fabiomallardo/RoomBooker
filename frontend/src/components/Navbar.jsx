@@ -8,8 +8,11 @@ import './Navbar.css';
 
 const API_URL = process.env.REACT_APP_API_URL;
 
-const resolveImgUrl = (imgPath) =>
-  imgPath?.startsWith("http") ? imgPath : `${API_URL}/${imgPath}`;
+const resolveImgUrl = (imgPath) => {
+  if (!imgPath) return "https://via.placeholder.com/150";
+  return imgPath; 
+};
+
 
 export default function Navbar() {
   const { customer, logout } = useAuth();
