@@ -90,45 +90,53 @@ export const editAuthCustomerImage = [
       console.log("🧾 req.file:", req.file);
       console.log("🔐 req.user:", req.user);
 
-      if (!req.file) {
-        return res.status(400).json({ message: "Nessuna immagine inviata" });
-      }
-
-      const userId = req.user.customerId || req.user._id;
+      const userId = req.user._id || req.user.customerId;
 
       if (!userId) {
-        console.error("❌ ID utente mancante nel token:", req.user);
-        return res.status(401).json({ message: "Utente non autenticato" });
+        console.error("❌ ID utente mancante:", req.user);
+        return res.status(401).json({ message: "Token non valido" });
       }
-      
+
       const customer = await Customer.findById(userId);
       if (!customer) {
-        console.error("❌ Utente non trovato in DB con ID:", userId);
-        return res.status(404).json({ message: "Utente non trovato" });
-      }
-      
-
-      if (!customer) {
+        console.error("❌ Utente non trovato:", userId);
         return res.status(404).json({ message: "Utente non trovato" });
       }
 
+      if (!req.file) {
+        return res.status(400).json({ message: "Nessun file ricevuto" });
+      }
+
+      // Rimuovi immagine precedente da Cloudinary (se esiste)
       if (customer.cloudinaryId) {
-        console.log("🧹 Rimuovo vecchia immagine:", customer.cloudinaryId);
+        console.log("🧹 Rimuovo immagine precedente:", customer.cloudinaryId);
         await cloudinary.uploader.destroy(customer.cloudinaryId);
       }
 
-      customer.profileImg = req.file.path;
-      customer.cloudinaryId = req.file.filename;
+      // Assicurati che filename o public_id esista
+      const newImg = req.file.path;
+      const cloudId = req.file.filename || req.file.public_id || req.file.originalname;
+
+      if (!newImg || !cloudId) {
+        console.error("❌ File Cloudinary non valido:", req.file);
+        return res.status(500).json({ message: "Errore durante upload immagine" });
+      }
+
+      customer.profileImg = newImg;
+      customer.cloudinaryId = cloudId;
+
       await customer.save();
 
-      console.log("✅ Profilo aggiornato con immagine");
+      console.log("✅ Immagine profilo aggiornata");
       return res.status(200).json(customer);
+
     } catch (err) {
-      console.error("❌ Errore update immagine profilo:", err);
-      return res.status(500).json({ message: "Errore interno durante upload immagine" });
+      console.error("❌ Errore durante salvataggio:", err);
+      return res.status(500).json({ message: "Errore interno durante aggiornamento immagine" });
     }
-  },
+  }
 ];
+
 
 
 export async function destroyAuthCustomer(req, res) {
