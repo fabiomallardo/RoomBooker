@@ -36,14 +36,28 @@ const Profile = () => {
   const handleApiRequest = async (url, options) => {
     try {
       const res = await fetch(url, options);
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.message || "Errore sconosciuto");
+      const contentType = res.headers.get("content-type");
+  
+      let data;
+  
+      if (contentType && contentType.includes("application/json")) {
+        data = await res.json();
+      } else {
+        const text = await res.text();
+        throw new Error("Il server ha restituito una risposta non JSON:\n" + text.slice(0, 100));
+      }
+  
+      if (!res.ok) {
+        throw new Error(data.message || "Errore API");
+      }
+  
       return data;
     } catch (err) {
-      toast.error(`Errore: ${err.message}`);
+      toast.error(`❌ ${err.message}`);
       throw err;
     }
   };
+  
 
   useEffect(() => {
     const token = localStorage.getItem("token");
