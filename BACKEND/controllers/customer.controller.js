@@ -83,7 +83,7 @@ export async function editAuthCustomer(req, res) {
 }
 
 export const editAuthCustomerImage = [
-  upload.single("image"),
+  upload.single("profileImg"),
   async (req, res) => {
     const { customerId } = req.user;
     const uploadedImage = req.file;
