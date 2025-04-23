@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { toast } from 'react-toastify';
-/* import './Register.css'; */
+import './Register.css'; 
 
 export default function Register() {
   const [formData, setFormData] = useState({
