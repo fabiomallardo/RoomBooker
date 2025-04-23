@@ -102,15 +102,25 @@ toast.success(greeting);
         client_id: process.env.REACT_APP_GOOGLE_CLIENT_ID,
         callback: handleGoogleCallback,
       });
-
+  
       window.google.accounts.id.renderButton(googleBtnRef.current, {
         theme: "outline",
         size: "large",
-        width: "100%",
+        width: "100%", 
       });
+  
+    
+      setTimeout(() => {
+        const btn = googleBtnRef.current?.querySelector("div");
+        if (btn) {
+          btn.style.width = "100%";
+          btn.style.display = "flex";
+          btn.style.justifyContent = "center";
+        }
+      }, 100); 
     }
   }, []);
-
+  
   return (
     <div className="d-flex justify-content-center align-items-center min-vh-100 register-bg">
       <div className="register-card p-3 m-3 shadow rounded-4 w-100" style={{ maxWidth: "600px" }}>
@@ -172,8 +182,8 @@ toast.success(greeting);
 
         <div className="text-center my-4 text-muted">— oppure —</div>
 
-        <div className="d-flex justify-content-center w-100">
-          <div ref={googleBtnRef} style={{ minHeight: 50, width: "100%" }} className="border rounded-3 px-2 py-1" />
+        <div className="d-flex w-100">
+          <div ref={googleBtnRef} style={{ minHeight: 50 }} className="w-100" />
         </div>
       </div>
     </div>
