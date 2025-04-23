@@ -1,6 +1,8 @@
 import { useState, useEffect, useRef } from 'react';
 import { toast } from 'react-toastify';
 import './Register.css'; 
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 export default function Register() {
   const [formData, setFormData] = useState({
@@ -139,16 +141,13 @@ toast.success(greeting);
             <input type="email" name="email" onChange={handleChange} className="form-control" placeholder="📧 Email" required />
           </div>
 
-          <div className="mt-3">
-  <label className="form-label">📅 Data di nascita</label>
-  <input
-    type="date"
-    name="dataDiNascita"
-    onChange={handleChange}
-    className="form-control"
-    required
-  />
-</div>
+          <DatePicker
+  selected={formData.dataDiNascita}
+  onChange={(date) => setFormData(prev => ({ ...prev, dataDiNascita: date }))}
+  placeholderText="📅 Data di nascita"
+  className="form-control"
+  dateFormat="yyyy-MM-dd"
+/>
 
 
           <div className="mt-3">
