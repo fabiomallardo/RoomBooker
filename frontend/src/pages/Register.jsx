@@ -141,13 +141,21 @@ toast.success(greeting);
             <input type="email" name="email" onChange={handleChange} className="form-control" placeholder="📧 Email" required />
           </div>
 
-          <DatePicker
-  selected={formData.dataDiNascita}
-  onChange={(date) => setFormData(prev => ({ ...prev, dataDiNascita: date }))}
-  placeholderText="📅 Data di nascita"
-  className="form-control"
-  dateFormat="yyyy-MM-dd"
-/>
+          
+          <div className="mt-3">
+  <DatePicker
+    selected={formData.dataDiNascita}
+    onChange={(date) =>
+      setFormData((prev) => ({ ...prev, dataDiNascita: date }))
+    }
+    placeholderText="📅 Data di nascita"
+    className="form-control"
+    dateFormat="yyyy-MM-dd"
+    showYearDropdown
+    scrollableYearDropdown
+    yearDropdownItemNumber={100}
+  />
+</div>
 
 
           <div className="mt-3">
