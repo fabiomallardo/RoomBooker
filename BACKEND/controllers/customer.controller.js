@@ -94,7 +94,19 @@ export const editAuthCustomerImage = [
         return res.status(400).json({ message: "Nessuna immagine inviata" });
       }
 
-      const customer = await Customer.findById(req.user.customerId || req.user._id);
+      const userId = req.user.customerId || req.user._id;
+
+      if (!userId) {
+        console.error("❌ ID utente mancante nel token:", req.user);
+        return res.status(401).json({ message: "Utente non autenticato" });
+      }
+      
+      const customer = await Customer.findById(userId);
+      if (!customer) {
+        console.error("❌ Utente non trovato in DB con ID:", userId);
+        return res.status(404).json({ message: "Utente non trovato" });
+      }
+      
 
       if (!customer) {
         return res.status(404).json({ message: "Utente non trovato" });
