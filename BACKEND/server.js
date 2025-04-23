@@ -18,7 +18,7 @@ server.use(cors())
 server.use(express.json())
 server.use(passport.initialize())
 
-// ✅ Servire gli upload
+// Servire gli upload
 server.use('/uploads', express.static(path.join(__dirname, 'uploads')))
 
 // === Routing

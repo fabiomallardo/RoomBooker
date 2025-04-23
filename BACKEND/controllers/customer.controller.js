@@ -30,8 +30,6 @@ export async function readAuthCustomer(req, res) {
 export async function editAuthCustomer(req, res) {
   try {
   
-
-  
     if (req.body.gender) {
       req.body.gender = req.body.gender.trim().toLowerCase();
     }
@@ -82,9 +80,7 @@ export async function editAuthCustomer(req, res) {
   }
 }
 
-export const editAuthCustomerImage = [
-  upload.single("profileImg"),
-  async (req, res) => {
+export const editAuthCustomerImage =  async (req, res) => {
     try {
       console.log("📥 PATCH /me/image");
       console.log("🧾 req.file:", req.file);
@@ -135,7 +131,6 @@ export const editAuthCustomerImage = [
       return res.status(500).json({ message: "Errore interno durante aggiornamento immagine" });
     }
   }
-];
 
 
 
