@@ -25,13 +25,13 @@
       transform: translateY(0);
     }
   }
-  
-  /* Input moderni */
+/*   
+
   .login-card input {
     border-radius: 12px;
     padding: 0.75rem;
     transition: all 0.3s ease;
-  }
+  } */
   
   .login-card input:focus {
     border-color: #dc3545;
