@@ -5,11 +5,13 @@ import Swal from "sweetalert2";
 import { useAuth } from "../context/AuthContext";
 import "./Profile.css";
 
-
-const API_URL = process.env.REACT_APP_API_URL
+const API_URL = process.env.REACT_APP_API_URL;
 
 const resolveImgUrl = (imgPath) =>
-  imgPath?.startsWith("http") ? imgPath : `${API_URL}/${imgPath}`;
+  imgPath?.startsWith("http")
+    ? imgPath
+    : `${API_URL}/${imgPath.replace(/^\/+/, '')}`; 
+
 
 
 const Profile = () => {
