@@ -140,8 +140,16 @@ toast.success(greeting);
           </div>
 
           <div className="mt-3">
-            <input type="text" name="dataDiNascita" onChange={handleChange} className="form-control" placeholder="📅 Data di nascita" required />
-          </div>
+  <label className="form-label">📅 Data di nascita</label>
+  <input
+    type="date"
+    name="dataDiNascita"
+    onChange={handleChange}
+    className="form-control"
+    required
+  />
+</div>
+
 
           <div className="mt-3">
             <input type="password" name="password" onChange={handleChange} className="form-control" placeholder="🔑 Password" required />
