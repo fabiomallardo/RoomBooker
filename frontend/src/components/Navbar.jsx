@@ -62,7 +62,7 @@ export default function Navbar() {
               {/* Mobile */}
               <ul className="navbar-nav d-lg-none gap-2 text-dark">
                 <li className="nav-item">
-                  <Link className="nav-link" to="/profile">Profilo</Link>
+                  <Link className="nav-link btn btn-link" to="/profile">Profilo</Link>
                 </li>
                 <li className="nav-item">
                   <button className="nav-link btn btn-link" onClick={handleLogout}>Logout</button>
