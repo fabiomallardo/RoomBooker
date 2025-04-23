@@ -112,7 +112,7 @@ export default function Login() {
 
           <div className="text-center my-4 text-muted">— oppure —</div>
 
-          <div className="d-flex justify-content-center">
+          <div className="d-flex justify-content-center w-100">
             <div
               ref={googleBtnRef}
               style={{ minHeight: 50, width: '100%' }}
