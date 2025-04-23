@@ -21,7 +21,7 @@ router.post("/login", authController.login)
 // --- PROFILO UTENTE ---
 router.get("/me", authMiddleware, customerController.readAuthCustomer)
 router.patch("/me", authMiddleware, customerController.editAuthCustomer)
-router.patch("/me/image", authMiddleware, upload.single("profileImg"), customerController.editAuthCustomerImage)
+router.patch("/me/image",authMiddleware,(req, res, next) => {console.log("✅ authMiddleware completato — utente:", req.user);next();},upload.single("profileImg"),customerController.editAuthCustomerImage);
 router.delete("/me", authMiddleware, customerController.destroyAuthCustomer)
 
 // --- GOOGLE AUTH ---
@@ -32,7 +32,7 @@ router.post("/struttura", authMiddleware, upload.array('images', 10), strutturaC
 router.get("/struttura/mie", authMiddleware, strutturaController.getUserStrutture)
 router.get("/struttura", strutturaController.getAll)
 router.get("/struttura/:id", strutturaController.getById)
-router.put("/struttura/:strutturaId", authMiddleware, upload.single("image"), strutturaController.updateStruttura) 
+router.put("/struttura/:strutturaId", authMiddleware, upload.single("image"), strutturaController.updateStruttura)
 router.delete("/struttura/:strutturaId", authMiddleware, strutturaController.deleteStruttura)
 
 // --- RECENSIONI ---
