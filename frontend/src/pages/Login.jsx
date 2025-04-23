@@ -116,7 +116,7 @@ export default function Login() {
             <div
               ref={googleBtnRef}
               style={{ minHeight: 50, width: '100%' }}
-              className="border rounded-3 px-2 py-1"
+              className="w-100"
             />
           </div>
         </form>
