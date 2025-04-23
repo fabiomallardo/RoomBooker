@@ -90,7 +90,7 @@ const Profile = () => {
     try {
       if (newImage) {
         const formDataImg = new FormData();
-        formDataImg.append("image", newImage);
+        formDataImg.append("profileImg", newImage);
 
         const imageData = await handleApiRequest(`${API_URL}/me/image`, {
           method: "PATCH",
