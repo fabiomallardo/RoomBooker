@@ -69,7 +69,7 @@ export default function Navbar() {
                 </li>
                 {customer.role === "host" && (
                   <li className="nav-item">
-                    <Link className="nav-link" to="/create-struttura">Registra la tua struttura</Link>
+                    <Link className="nav-link btn btn-link" to="/create-struttura">Registra la tua struttura</Link>
                   </li>
                 )}
               </ul>
