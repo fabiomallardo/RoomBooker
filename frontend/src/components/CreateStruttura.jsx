@@ -95,7 +95,7 @@ export default function CreateHotel() {
     });
 
     try {
-      const res = await fetch("http://localhost:4000/struttura", {
+      const res = await fetch(`${process.env.REACT_APP_API_URL}/struttura`, {
         method: "POST",
         headers: {
           Authorization: "Bearer " + token,

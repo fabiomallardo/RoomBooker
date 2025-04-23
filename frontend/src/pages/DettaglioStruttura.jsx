@@ -36,7 +36,7 @@ export default function DettaglioStruttura() {
   useEffect(() => {
     const fetchStrutturaDetails = async () => {
       try {
-        const res = await fetch(`http://localhost:4000/struttura/${id}`);
+        const res = await fetch(`${process.env.REACT_APP_API_URL}/struttura/${id}`);
         const data = await res.json();
         if (!res.ok) throw new Error(data.message);
         setStruttura(data);
@@ -50,7 +50,7 @@ export default function DettaglioStruttura() {
 
     const fetchReviews = async () => {
       try {
-        const res = await fetch(`http://localhost:4000/struttura/${id}/reviews`);
+        const res = await fetch(`${process.env.REACT_APP_API_URL}/struttura/${id}/reviews`);
         const data = await res.json();
         if (!res.ok) throw new Error(data.message);
         setReviews(data);
@@ -63,7 +63,7 @@ export default function DettaglioStruttura() {
       const token = localStorage.getItem("token");
       if (!token) return;
       try {
-        const res = await fetch("http://localhost:4000/me", {
+        const res = await fetch(`${process.env.REACT_APP_API_URL}/me`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         const data = await res.json();
@@ -193,7 +193,7 @@ export default function DettaglioStruttura() {
     }
 
     try {
-      const res = await fetch(`http://localhost:4000/struttura/${id}/book`, {
+      const res = await fetch(`${process.env.REACT_APP_API_URL}/struttura/${id}/book`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -225,7 +225,7 @@ export default function DettaglioStruttura() {
       return toast.error("Completa tutti i campi");
     }
     try {
-      const res = await fetch(`http://localhost:4000/struttura/${id}/reviews`, {
+      const res = await fetch(`${process.env.REACT_APP_API_URL}/struttura/${id}/reviews`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -248,7 +248,7 @@ export default function DettaglioStruttura() {
       const token = localStorage.getItem("token");
       if (!token) return toast.error("Devi essere loggato per vedere le prenotazioni");
 
-      const res = await fetch(`http://localhost:4000/struttura/${id}/bookings`, {
+      const res = await fetch(`${process.env.REACT_APP_API_URL}/struttura/${id}/bookings`, {
         headers: { Authorization: `Bearer ${token}` },
       });
 
@@ -267,7 +267,7 @@ export default function DettaglioStruttura() {
     const token = localStorage.getItem("token");
     if (!token) return;
     try {
-      const res = await fetch(`http://localhost:4000/reviews/${reviewId}`, {
+      const res = await fetch(`${process.env.REACT_APP_API_URL}/reviews/${reviewId}`, {
         method: "DELETE",
         headers: { Authorization: `Bearer ${token}` },
       });
@@ -284,7 +284,7 @@ export default function DettaglioStruttura() {
     if (!token) return toast.error("Devi essere loggato");
 
     try {
-      const res = await fetch(`http://localhost:4000/bookings/${bookingId}`, {
+      const res = await fetch(`${process.env.REACT_APP_API_URL}/bookings/${bookingId}`, {
         method: "DELETE",
         headers: { Authorization: `Bearer ${token}` },
       });

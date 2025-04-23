@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { ClipLoader } from "react-spinners";
 import "./Home.css";
 
-const STRUTTURA_ENDPOINT = "http://localhost:4000/struttura";
+const STRUTTURA_ENDPOINT = `${process.env.REACT_APP_API_URL}/struttura`;
 const FILTERS = ["Hotel", "Appartamenti", "Bed & Breakfast", "Cottage"];
 
 export default function Home() {

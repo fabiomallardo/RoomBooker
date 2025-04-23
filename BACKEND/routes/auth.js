@@ -29,7 +29,7 @@ router.get(
       { expiresIn: "7d" }
     );
 
-    res.redirect(`http://localhost:5173/login/success?token=${token}`);
+    res.redirect(`${process.env.REACT_APP_API_URL}/login/success?token=${token}`);
   }
 );
 

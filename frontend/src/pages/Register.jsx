@@ -37,7 +37,7 @@ export default function Register() {
     });
 
     try {
-      const res = await fetch("http://localhost:4000/register", {
+      const res = await fetch(`${process.env.REACT_APP_API_URL}/register`, {
         method: "POST",
         body: formDataToSend,
       });
@@ -74,7 +74,7 @@ toast.success(greeting);
 
   const handleGoogleCallback = async (response) => {
     try {
-      const res = await fetch("http://localhost:4000/auth/google/token", {
+      const res = await fetch(`${process.env.REACT_APP_API_URL}/auth/google/token`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ credential: response.credential }),
