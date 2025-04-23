@@ -4,7 +4,7 @@
   }
   
 
-/*   .login-card {
+  .login-card {
     width: 100%;
     max-width: 400px;
     background: rgba(255, 255, 255, 0.95);
@@ -12,10 +12,10 @@
     border: 1px solid rgba(255, 255, 255, 0.3);
     border-radius: 16px;
     animation: fadeInUp 0.8s ease-out;
-  } */
+  } 
   
-  /* Animazione entrata */
-  @keyframes fadeInUp {
+  
+/*   @keyframes fadeInUp {
     from {
       opacity: 0;
       transform: translateY(40px);
@@ -25,7 +25,7 @@
       transform: translateY(0);
     }
   }
-
+ */
 
   .login-card input {
     border-radius: 12px;
