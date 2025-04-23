@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { toast } from 'react-toastify';
-import './Register.css'; 
+import './Register.css';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -51,14 +51,14 @@ export default function Register() {
       if (!res.ok) throw new Error(data.message || "❌ Errore generico");
 
       const gender = data.customer.gender;
-const name = data.customer.firstName;
+      const name = data.customer.firstName;
 
-const greeting =
-  gender === "female" ? `👋🏻 Benvenuta ${name}` :
-  gender === "male" ? `👋🏻 Benvenuto ${name}` :
-  `Benvenutə ${name}`; 
+      const greeting =
+        gender === "female" ? `👋🏻 Benvenuta ${name}` :
+          gender === "male" ? `👋🏻 Benvenuto ${name}` :
+            `Benvenutə ${name}`;
 
-toast.success(greeting);
+      toast.success(greeting);
 
       localStorage.setItem("token", data.token);
       localStorage.setItem("customer", JSON.stringify(data.customer));
@@ -104,14 +104,14 @@ toast.success(greeting);
         client_id: process.env.REACT_APP_GOOGLE_CLIENT_ID,
         callback: handleGoogleCallback,
       });
-  
+
       window.google.accounts.id.renderButton(googleBtnRef.current, {
         theme: "outline",
         size: "large",
-        width: "100%", 
+        width: "100%",
       });
-  
-    
+
+
       setTimeout(() => {
         const btn = googleBtnRef.current?.querySelector("div");
         if (btn) {
@@ -119,10 +119,10 @@ toast.success(greeting);
           btn.style.display = "flex";
           btn.style.justifyContent = "center";
         }
-      }, 100); 
+      }, 100);
     }
   }, []);
-  
+
   return (
     <div className="d-flex justify-content-center align-items-center min-vh-100 register-bg">
       <div className="register-card p-3 m-3 shadow rounded-4 w-100" style={{ maxWidth: "600px" }}>
@@ -141,21 +141,21 @@ toast.success(greeting);
             <input type="email" name="email" onChange={handleChange} className="form-control" placeholder="📧 Email" required />
           </div>
 
-          
-          <div className="mt-3">
-  <DatePicker
-    selected={formData.dataDiNascita}
-    onChange={(date) =>
-      setFormData((prev) => ({ ...prev, dataDiNascita: date }))
-    }
-    placeholderText="📅 Data di nascita"
-    className="form-control"
-    dateFormat="yyyy-MM-dd"
-    showYearDropdown
-    scrollableYearDropdown
-    yearDropdownItemNumber={100}
-  />
-</div>
+
+          <div className="mt-3 mb-3">
+            <DatePicker
+              selected={formData.dataDiNascita}
+              onChange={(date) =>
+                setFormData((prev) => ({ ...prev, dataDiNascita: date }))
+              }
+              placeholderText="📅 Data di nascita"
+              className="form-control"
+              dateFormat="yyyy-MM-dd"
+              showYearDropdown
+              scrollableYearDropdown
+              yearDropdownItemNumber={100}
+            />
+          </div>
 
 
           <div className="mt-3">
