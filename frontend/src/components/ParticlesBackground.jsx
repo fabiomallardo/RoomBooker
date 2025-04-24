@@ -12,16 +12,16 @@ export default function ParticlesBackground() {
       id="tsparticles"
       init={particlesInit}
       options={{
-        fullScreen: {
-          enable: false,
-        },
         background: {
-          color: { value: "#ffffff" }
+          color: {
+            value: "#ffffff" // oppure #000000 per test visibilità
+          },
         },
+        fullScreen: { enable: false },
         particles: {
           number: {
-            value: 70,
-            density: { enable: true, value_area: 800 }
+            value: 60,
+            density: { enable: true, value_area: 800 },
           },
           color: { value: "#dc3545" },
           shape: { type: "circle" },
@@ -29,20 +29,18 @@ export default function ParticlesBackground() {
           size: { value: 3 },
           move: {
             enable: true,
-            speed: 0.6,
-            direction: "none",
-            outMode: "bounce"
-          }
+            speed: 1,
+            outMode: "bounce",
+          },
         },
         interactivity: {
           events: {
             onHover: { enable: true, mode: "repulse" },
-            resize: true
           },
           modes: {
-            repulse: { distance: 100 }
-          }
-        }
+            repulse: { distance: 100 },
+          },
+        },
       }}
       style={{
         position: "absolute",
@@ -51,6 +49,7 @@ export default function ParticlesBackground() {
         width: "100%",
         height: "100%",
         zIndex: -1,
+        pointerEvents: "none", 
       }}
     />
   );
