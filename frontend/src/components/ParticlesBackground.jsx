@@ -1,10 +1,10 @@
 import { useCallback } from "react";
 import Particles from "react-tsparticles";
-import { loadFull } from "tsparticles";
+import { loadAll } from "tsparticles-all";
 
 export default function ParticlesBackground() {
   const particlesInit = useCallback(async (engine) => {
-    await loadFull(engine);
+    await loadAll(engine); 
   }, []);
 
   return (
@@ -12,44 +12,29 @@ export default function ParticlesBackground() {
       id="tsparticles"
       init={particlesInit}
       options={{
-        background: {
-          color: {
-            value: "#ffffff" // oppure #000000 per test visibilità
-          },
-        },
         fullScreen: { enable: false },
+        background: { color: { value: "#000" } },
         particles: {
-          number: {
-            value: 60,
-            density: { enable: true, value_area: 800 },
-          },
-          color: { value: "#dc3545" },
+          number: { value: 60 },
+          color: { value: "#fff" },
           shape: { type: "circle" },
-          opacity: { value: 0.4 },
+          opacity: { value: 0.3 },
           size: { value: 3 },
           move: {
             enable: true,
             speed: 1,
-            outMode: "bounce",
-          },
-        },
-        interactivity: {
-          events: {
-            onHover: { enable: true, mode: "repulse" },
-          },
-          modes: {
-            repulse: { distance: 100 },
-          },
-        },
+            direction: "none",
+            outMode: "bounce"
+          }
+        }
       }}
       style={{
         position: "absolute",
-        top: 0,
-        left: 0,
         width: "100%",
         height: "100%",
+        top: 0,
+        left: 0,
         zIndex: -1,
-        pointerEvents: "none", 
       }}
     />
   );
