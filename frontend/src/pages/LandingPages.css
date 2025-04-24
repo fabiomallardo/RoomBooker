@@ -40,6 +40,7 @@
 .hero-clean {
   max-width: 600px;
   padding: 2rem;
+  margin-top: 50px;
   animation: fadeInUp 1s ease-out forwards;
   opacity: 0;
 }
