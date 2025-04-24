@@ -101,49 +101,77 @@ const Profile = () => {
   }, [navigate]);
 
   const handleProfileUpdate = async (e) => {
-    e.preventDefault(); 
-    if (!newImage) return;
+    e.preventDefault();
   
-    const formDataImg = new FormData();
-    formDataImg.append("profileImg", newImage);
-  
-    const url = `${API_URL}/me/image`;
-    const options = {
-      method: "PATCH",
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-      },
-      body: formDataImg,
-    };
-    try {
-      const res = await fetch(url, options);
-      const contentType = res.headers.get("content-type");
-    
-      if (!res.ok) {
-        const text = await res.text();
-    
-        if (contentType?.includes("application/json")) {
-          const errorJson = JSON.parse(text);
-          console.error("❌ ERRORE JSON:", errorJson);
-          toast.error(errorJson.message || "Errore dal server");
-        } else {
-          console.error("❌ ERRORE HTML:", text);
-          toast.error("Errore server non JSON");
-        }
-    
-        return;
-      }
-
-      const data = await res.json(); 
-      updateCustomerState(data);
-      toast.success("✅ Immagine aggiornata!");
-    } catch (err) {
-      console.error("🔥 Crash:", err.message);
-      toast.error("Errore durante il salvataggio dell'immagine");
+    const token = localStorage.getItem("token");
+    if (!token) {
+      toast.error("Token mancante");
+      return;
     }
-    
-    
+  
+    // 1. Aggiorna dati del profilo (JSON)
+    try {
+      const res = await fetch(`${API_URL}/me`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(formData),
+      });
+  
+      if (!res.ok) {
+        const errorData = await res.json();
+        throw new Error(errorData.message || "Errore aggiornamento profilo");
+      }
+  
+      const updatedData = await res.json();
+      updateCustomerState(updatedData);
+      toast.success("✅ Dati profilo aggiornati");
+    } catch (err) {
+      console.error("Errore aggiornamento dati:", err);
+      toast.error("Errore aggiornamento dati");
+    }
+  
+    // 2. Se c'è un'immagine nuova, inviala a parte
+    if (newImage) {
+      const formDataImg = new FormData();
+      formDataImg.append("profileImg", newImage);
+  
+      try {
+        const imgRes = await fetch(`${API_URL}/me/image`, {
+          method: "PATCH",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          body: formDataImg,
+        });
+  
+        const contentType = imgRes.headers.get("content-type");
+        const text = await imgRes.text();
+  
+        if (!imgRes.ok) {
+          if (contentType?.includes("application/json")) {
+            const errorJson = JSON.parse(text);
+            console.error("❌ ERRORE JSON:", errorJson);
+            toast.error(errorJson.message || "Errore aggiornamento immagine");
+          } else {
+            console.error("❌ ERRORE HTML:", text);
+            toast.error("Errore server immagine");
+          }
+          return;
+        }
+  
+        const data = JSON.parse(text);
+        updateCustomerState(data);
+        toast.success("✅ Immagine aggiornata!");
+      } catch (err) {
+        console.error("🔥 Errore immagine:", err);
+        toast.error("Errore durante aggiornamento immagine");
+      }
+    }
   };
+  
   const handleImageSelect = (e) => {
     const file = e.target.files?.[0];
     if (!file || !(file instanceof Blob)) {
