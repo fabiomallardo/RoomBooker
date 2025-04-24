@@ -158,14 +158,12 @@ export const updateStruttura = async (req, res) => {
       return res.status(403).json({ message: "Non autorizzato" })
     }
 
-    // ✅ Se c'è un'immagine, aggiorna
     if (req.file) {
       struttura.images[0] = req.file.path
       struttura.cloudinaryIds[0] = req.file.filename
     
     }
 
-    // ✅ Cast automatico: definisci i tipi per ogni campo
     const fieldTypes = {
       name: 'string',
       description: 'string',
@@ -175,7 +173,6 @@ export const updateStruttura = async (req, res) => {
       pricePerNight: 'number',
     }
 
-    // ✅ Aggiorna dinamicamente con cast
     Object.entries(req.body).forEach(([key, value]) => {
       if (fieldTypes[key]) {
         const castedValue =
