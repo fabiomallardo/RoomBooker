@@ -80,63 +80,51 @@ export async function editAuthCustomer(req, res) {
   }
 }
 
-export const editAuthCustomerImage = [
-  upload.single("profileImg"),
-  async (req, res) => {
-    try {
-      const debug = {
-        file: req.file,
-        body: req.body,
-        user: req.user
-      }
-  
-      const userId = req?.user?._id || req?.user?.customerId
-  
-      if (!userId) {
-        debug.reason = 'Token mancante o malformato'
-        return res.status(401).json({ message: "Token non valido", debug })
-      }
-  
-      const customer = await Customer.findById(userId)
-      if (!customer) {
-        debug.reason = 'Utente non trovato nel DB'
-        return res.status(404).json({ message: "Utente non trovato", debug })
-      }
-  
-      if (!req.file || !req.file.path) {
-        debug.reason = 'File non ricevuto o path nullo'
-        return res.status(400).json({ message: "File immagine mancante o non valido", debug })
-      }
-  
-      if (customer.cloudinaryId) {
-        try {
-          await cloudinary.uploader.destroy(customer.cloudinaryId)
-        } catch (e) {
-          debug.cloudinaryDestroyError = e.message
-        }
-      }
-  
-      const newImg = req.file.path
-      const cloudId = req.file.filename || req.file.public_id || req.file.originalname
-  
-      if (!newImg || !cloudId) {
-        debug.reason = 'Cloudinary ID o path mancante'
-        return res.status(500).json({ message: "Errore upload immagine", debug })
-      }
-  
-      customer.profileImg = newImg
-      customer.cloudinaryId = cloudId
-  
-      await customer.save()
-  
-      return res.status(200).json({ message: "Upload riuscito", customer })
-  
-    } catch (err) {
-      console.error("❌ Errore interno:", err)
-      return res.status(500).json({ message: "Errore interno server", error: err.message })
-    }
+export const editAuthCustomerImage = async (req, res) => {
+  const debug = {
+    user: req.user,
+    file: req.file,
+    body: req.body,
+  };
+
+  const userId = req?.user?._id || req?.user?.customerId;
+
+  if (!userId) {
+    return res.status(401).json({ message: "Token non valido", debug });
   }
-];  
+
+  const customer = await Customer.findById(userId);
+  if (!customer) {
+    return res.status(404).json({ message: "Utente non trovato", debug });
+  }
+
+  if (!req.file || !req.file.path) {
+    return res.status(400).json({ message: "File immagine mancante o non valido", debug });
+  }
+
+  try {
+    if (customer.cloudinaryId) {
+      await cloudinary.uploader.destroy(customer.cloudinaryId);
+    }
+  } catch (e) {
+    debug.destroyError = e.message;
+  }
+
+  const newImg = req.file.path;
+  const cloudId = req.file.filename || req.file.public_id || req.file.originalname;
+
+  if (!newImg || !cloudId) {
+    return res.status(500).json({ message: "Errore dati Cloudinary", debug });
+  }
+
+  customer.profileImg = newImg;
+  customer.cloudinaryId = cloudId;
+
+  await customer.save();
+
+  return res.status(200).json({ message: "Upload riuscito", customer });
+};
+
 
 
 export async function destroyAuthCustomer(req, res) {

@@ -21,8 +21,9 @@ router.post("/login", authController.login)
 // --- PROFILO UTENTE ---
 router.get("/me", authMiddleware, customerController.readAuthCustomer)
 router.patch("/me", authMiddleware, customerController.editAuthCustomer)
-router.patch("/me/image", authMiddleware, upload.single("profileImg"), customerController.editAuthCustomerImage)
 router.delete("/me", authMiddleware, customerController.destroyAuthCustomer)
+router.patch("/me/image", authMiddleware, ...customerController.editAuthCustomerImage)
+
 
 // --- GOOGLE AUTH ---
 router.use(googleAuthRoutes)
