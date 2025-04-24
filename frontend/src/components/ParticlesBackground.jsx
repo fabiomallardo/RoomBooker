@@ -13,11 +13,10 @@ export default function ParticlesBackground() {
       init={particlesInit}
       options={{
         fullScreen: {
-          enable: true,
-          zIndex: -1
+          enable: false,
         },
         background: {
-          color: { value: "#121212" }
+          color: { value: "#ffffff" }
         },
         particles: {
           number: {
@@ -45,7 +44,14 @@ export default function ParticlesBackground() {
           }
         }
       }}
-      
+      style={{
+        position: "absolute",
+        top: 0,
+        left: 0,
+        width: "100%",
+        height: "100%",
+        zIndex: -1,
+      }}
     />
   );
 }

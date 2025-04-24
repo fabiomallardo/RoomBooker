@@ -1,7 +1,8 @@
 /* Sfondo con gradiente animato */
 .landing-fullscreen {
   overflow: hidden;
-  background: linear-gradient(135deg, #f8f9fa, #ffffff, #f8f9fa);
+  position: relative;
+  background-color: transparent; 
   background-size: 400% 400%;
   animation: gradientMove 10s ease infinite;
 }

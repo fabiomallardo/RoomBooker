@@ -33,7 +33,7 @@ export default function LandingPages() {
   }, []);
 
   return (
-    <div className="landing-fullscreen d-flex flex-column">
+    <div className="landing-fullscreen position-relative d-flex flex-column">
        <ParticlesBackground />
       <div className="flex-grow-1 d-flex justify-content-center align-items-center text-center text-dark">
         <div className="hero-clean">
