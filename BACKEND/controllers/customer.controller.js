@@ -85,39 +85,43 @@ export const editAuthCustomerImage = [
   async (req, res) => {
     try {
       const debug = {
-        user: req.user,
         file: req.file,
-        body: req.body
+        body: req.body,
+        user: req.user
       }
   
-      const userId = req.user?._id || req.user?.customerId
+      const userId = req?.user?._id || req?.user?.customerId
   
       if (!userId) {
+        debug.reason = 'Token mancante o malformato'
         return res.status(401).json({ message: "Token non valido", debug })
       }
   
       const customer = await Customer.findById(userId)
       if (!customer) {
+        debug.reason = 'Utente non trovato nel DB'
         return res.status(404).json({ message: "Utente non trovato", debug })
       }
   
       if (!req.file || !req.file.path) {
-        return res.status(400).json({ message: "Nessun file ricevuto o path mancante", debug })
+        debug.reason = 'File non ricevuto o path nullo'
+        return res.status(400).json({ message: "File immagine mancante o non valido", debug })
       }
   
-      try {
-        if (customer.cloudinaryId) {
+      if (customer.cloudinaryId) {
+        try {
           await cloudinary.uploader.destroy(customer.cloudinaryId)
+        } catch (e) {
+          debug.cloudinaryDestroyError = e.message
         }
-      } catch (destroyErr) {
-        debug.destroyError = destroyErr.message
       }
   
       const newImg = req.file.path
       const cloudId = req.file.filename || req.file.public_id || req.file.originalname
   
       if (!newImg || !cloudId) {
-        return res.status(500).json({ message: "Dati Cloudinary incompleti", debug })
+        debug.reason = 'Cloudinary ID o path mancante'
+        return res.status(500).json({ message: "Errore upload immagine", debug })
       }
   
       customer.profileImg = newImg
@@ -126,8 +130,10 @@ export const editAuthCustomerImage = [
       await customer.save()
   
       return res.status(200).json({ message: "Upload riuscito", customer })
+  
     } catch (err) {
-      return res.status(500).json({ message: "Errore interno durante aggiornamento immagine", error: err.message })
+      console.error("❌ Errore interno:", err)
+      return res.status(500).json({ message: "Errore interno server", error: err.message })
     }
   }
 ];  
