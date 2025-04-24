@@ -100,37 +100,51 @@ const Profile = () => {
     fetchStructures();
   }, [navigate]);
 
-  const handleProfileUpdate = async () => {
-    e.preventDefault(); 
-    if (!newImage) return;
-  
-    const formDataImg = new FormData();
-    formDataImg.append("profileImg", newImage);
-  
-    const url = `${API_URL}/me/image`;
-    const options = {
+
+const handleProfileUpdate = async (e) => {
+  e.preventDefault();
+
+  const token = localStorage.getItem("token");
+
+ 
+  try {
+    const updatedUser = await handleApiRequest(`${API_URL}/me`, {
       method: "PATCH",
       headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
-      body: formDataImg,
-    };
-  
+      body: JSON.stringify(formData), 
+    });
+    updateCustomerState(updatedUser);
+    toast.success("✅ Dati profilo aggiornati!");
+  } catch (err) {
+    console.error(err);
+  }
+
+ 
+  if (newImage) {
     try {
-      const res = await fetch(url, options);
-  
-      const text = await res.text();
-  
-      if (!res.ok) throw new Error(`Errore ${res.status}: ${text}`);
-  
-      const data = JSON.parse(text);
-      updateCustomerState(data);
+      const formDataImg = new FormData();
+      formDataImg.append("profileImg", newImage);
+
+      const updatedWithImg = await handleApiRequest(
+        `${API_URL}/me/image`,
+        {
+          method: "PATCH",
+          headers: { Authorization: `Bearer ${token}` },
+          body: formDataImg,
+        }
+      );
+
+      updateCustomerState(updatedWithImg);
       toast.success("✅ Immagine aggiornata!");
     } catch (err) {
-      console.error("❌ Errore caricamento immagine:", err.message);
-      toast.error("Errore durante il salvataggio dell'immagine");
+      console.error(err);
     }
-  };
+  }
+};
+
   const handleImageSelect = (e) => {
     const file = e.target.files?.[0];
     if (!file || !(file instanceof Blob)) {
