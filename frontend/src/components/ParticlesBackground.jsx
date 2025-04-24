@@ -13,10 +13,10 @@ export default function ParticlesBackground() {
       init={particlesInit}
       options={{
         fullScreen: { enable: false },
-        background: { color: { value: "#000" } },
+        background: { color: { value: "#fff" } },
         particles: {
-          number: { value: 60 },
-          color: { value: "#fff" },
+          number: { value: 70 },
+          color: { value: "#000" },
           shape: { type: "circle" },
           opacity: { value: 0.3 },
           size: { value: 3 },
