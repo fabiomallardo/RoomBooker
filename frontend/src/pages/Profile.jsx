@@ -101,6 +101,7 @@ const Profile = () => {
   }, [navigate]);
 
   const handleProfileUpdate = async () => {
+    e.preventDefault(); 
     if (!newImage) return;
   
     const formDataImg = new FormData();
@@ -116,12 +117,9 @@ const Profile = () => {
     };
   
     try {
-      console.log("📤 Chiamata PATCH immagine:", url);
       const res = await fetch(url, options);
   
       const text = await res.text();
-      console.log("📥 Status:", res.status);
-      console.log("📥 Risposta:", text);
   
       if (!res.ok) throw new Error(`Errore ${res.status}: ${text}`);
   
