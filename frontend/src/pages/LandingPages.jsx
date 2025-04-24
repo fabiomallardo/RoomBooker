@@ -32,9 +32,9 @@ export default function LandingPages() {
   }, []);
 
   return (
-    <div className="landing-fullscreen d-flex flex-column mt-3">
+    <div className="landing-fullscreen d-flex flex-column">
       <div className="flex-grow-1 d-flex justify-content-center align-items-center text-center text-dark">
-        <div className="hero-clean">
+        <div className="hero-clean mt-3">
           <h1 className={`display-2 fw-bold mb-3 typewriter-text ${isTyping ? "blinking" : ""}`}>
             {displayText}
           </h1>
