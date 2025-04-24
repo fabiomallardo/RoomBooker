@@ -24,6 +24,16 @@ server.use('/uploads', express.static(path.join(__dirname, 'uploads')))
 // === Routing
 server.use(globalRouter)
 
+server.use((err, req, res, next) => {
+  console.error("🔥 Caught by global error handler:", err.message);
+  res.status(500).json({
+    message: "Errore interno catturato globalmente",
+    error: err.message,
+    stack: err.stack,
+  });
+});
+
+
 // === Connessione al DB
 mongoose.connect(process.env.MONGO_URL)
   .then(() => {
