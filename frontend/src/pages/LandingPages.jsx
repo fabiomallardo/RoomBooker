@@ -4,6 +4,7 @@ import AOS from 'aos';
 import { motion } from 'framer-motion';
 import 'aos/dist/aos.css';
 import Footer from '../components/Footer';
+import ParticlesBackground from '../components/ParticlesBackground.jsx';
 import './LandingPages.css';
 
 export default function LandingPages() {
@@ -33,6 +34,7 @@ export default function LandingPages() {
 
   return (
     <div className="landing-fullscreen d-flex flex-column">
+       <ParticlesBackground />
       <div className="flex-grow-1 d-flex justify-content-center align-items-center text-center text-dark">
         <div className="hero-clean">
           <h1 className={`display-2 fw-bold mb-3 typewriter-text ${isTyping ? "blinking" : ""}`}>
