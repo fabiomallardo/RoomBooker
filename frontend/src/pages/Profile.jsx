@@ -109,7 +109,6 @@ const Profile = () => {
       return;
     }
   
-    // 1. Aggiorna dati del profilo (JSON)
     try {
       const res = await fetch(`${API_URL}/me`, {
         method: "PATCH",
@@ -133,7 +132,6 @@ const Profile = () => {
       toast.error("Errore aggiornamento dati");
     }
   
-    // 2. Se c'è un'immagine nuova, inviala a parte
     if (newImage) {
       const formDataImg = new FormData();
       formDataImg.append("profileImg", newImage);
