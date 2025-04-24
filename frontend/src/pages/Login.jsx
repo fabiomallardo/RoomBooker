@@ -68,11 +68,11 @@ export default function Login() {
         callback: handleGoogleCallback,
       });
 
-     /*  window.google.accounts.id.renderButton(googleBtnRef.current, {
+      window.google.accounts.id.renderButton(googleBtnRef.current, {
         theme: "outline",
         size: "large",
         width: "100%",
-      }); */
+      }); 
     }
   }, []);
 
