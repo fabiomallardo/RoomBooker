@@ -118,18 +118,20 @@ const Profile = () => {
   
     try {
       const res = await fetch(url, options);
-  
       const text = await res.text();
-  
-      if (!res.ok) throw new Error(`Errore ${res.status}: ${text}`);
-  
-      const data = JSON.parse(text);
-      updateCustomerState(data);
-      toast.success("✅ Immagine aggiornata!");
+    
+      if (!res.ok) {
+        console.error("❌ Response:", text)
+        throw new Error(`Errore ${res.status}: ${text}`)
+      }
+    
+      const data = JSON.parse(text)
+      updateCustomerState(data)
+      toast.success("✅ Immagine aggiornata!")
     } catch (err) {
-      console.error("❌ Errore caricamento immagine:", err.message);
-      toast.error("Errore durante il salvataggio dell'immagine");
+      toast.error("Errore durante il salvataggio dell'immagine")
     }
+    
   };
   const handleImageSelect = (e) => {
     const file = e.target.files?.[0];

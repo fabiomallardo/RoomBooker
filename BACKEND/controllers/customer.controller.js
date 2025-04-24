@@ -83,54 +83,54 @@ export async function editAuthCustomer(req, res) {
 export const editAuthCustomerImage = [
   upload.single("profileImg"),
   async (req, res) => {
-    console.log("🧑‍💻 [DEBUG] req.user:", req.user)
-  console.log("🖼️ [DEBUG] req.file:", req.file)
-  console.log("📦 [DEBUG] req.body:", req.body)
     try {
-
-      const userId = req.user._id || req.user.customerId;
-
+      const debug = {
+        user: req.user,
+        file: req.file,
+        body: req.body
+      }
+  
+      const userId = req.user?._id || req.user?.customerId
+  
       if (!userId) {
-        console.error("❌ ID utente mancante:", req.user);
-        return res.status(401).json({ message: "Token non valido" });
+        return res.status(401).json({ message: "Token non valido", debug })
       }
-
-      const customer = await Customer.findById(userId);
+  
+      const customer = await Customer.findById(userId)
       if (!customer) {
-        console.error("❌ Utente non trovato:", userId);
-        return res.status(404).json({ message: "Utente non trovato" });
+        return res.status(404).json({ message: "Utente non trovato", debug })
       }
-
-      if (!req.file) {
-        return res.status(400).json({ message: "Nessun file ricevuto" });
+  
+      if (!req.file || !req.file.path) {
+        return res.status(400).json({ message: "Nessun file ricevuto o path mancante", debug })
       }
-
-      if (customer.cloudinaryId) {
-        await cloudinary.uploader.destroy(customer.cloudinaryId);
+  
+      try {
+        if (customer.cloudinaryId) {
+          await cloudinary.uploader.destroy(customer.cloudinaryId)
+        }
+      } catch (destroyErr) {
+        debug.destroyError = destroyErr.message
       }
-
-      const newImg = req.file.path;
-      const cloudId = req.file.filename || req.file.public_id || req.file.originalname;
-
+  
+      const newImg = req.file.path
+      const cloudId = req.file.filename || req.file.public_id || req.file.originalname
+  
       if (!newImg || !cloudId) {
-        console.error("❌ File Cloudinary non valido:", req.file);
-        return res.status(500).json({ message: "Errore durante upload immagine" });
+        return res.status(500).json({ message: "Dati Cloudinary incompleti", debug })
       }
-
-      customer.profileImg = newImg;
-      customer.cloudinaryId = cloudId;
-
-      await customer.save();
-
-      return res.status(200).json(customer);
-
+  
+      customer.profileImg = newImg
+      customer.cloudinaryId = cloudId
+  
+      await customer.save()
+  
+      return res.status(200).json({ message: "Upload riuscito", customer })
     } catch (err) {
-      console.error("❌ Errore durante salvataggio:", err);
-      return res.status(500).json({ message: "Errore interno durante aggiornamento immagine" });
+      return res.status(500).json({ message: "Errore interno durante aggiornamento immagine", error: err.message })
     }
   }
-];
-
+];  
 
 
 export async function destroyAuthCustomer(req, res) {
