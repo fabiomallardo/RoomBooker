@@ -5,7 +5,7 @@ import Swal from "sweetalert2";
 import { useAuth } from "../context/AuthContext";
 import "./Profile.css";
 
-const API_URL = process.env.REACT_APP_API_URL;
+const API_URL = process.env.REACT_APP_API_URL  || "https://roombooker.onrender.com";
 
 const resolveImgUrl = (imgPath) => {
   if (!imgPath) return "https://via.placeholder.com/150";
@@ -115,22 +115,33 @@ const Profile = () => {
       },
       body: formDataImg,
     };
-  
     try {
       const res = await fetch(url, options);
-      const text = await res.text();
+      const contentType = res.headers.get("content-type");
     
       if (!res.ok) {
-        console.error("❌ Response:", text)
-        throw new Error(`Errore ${res.status}: ${text}`)
-      }
+        const text = await res.text();
     
-      const data = JSON.parse(text)
-      updateCustomerState(data)
-      toast.success("✅ Immagine aggiornata!")
+        if (contentType?.includes("application/json")) {
+          const errorJson = JSON.parse(text);
+          console.error("❌ ERRORE JSON:", errorJson);
+          toast.error(errorJson.message || "Errore dal server");
+        } else {
+          console.error("❌ ERRORE HTML:", text);
+          toast.error("Errore server non JSON");
+        }
+    
+        return;
+      }
+
+      const data = await res.json(); 
+      updateCustomerState(data);
+      toast.success("✅ Immagine aggiornata!");
     } catch (err) {
-      toast.error("Errore durante il salvataggio dell'immagine")
+      console.error("🔥 Crash:", err.message);
+      toast.error("Errore durante il salvataggio dell'immagine");
     }
+    
     
   };
   const handleImageSelect = (e) => {
