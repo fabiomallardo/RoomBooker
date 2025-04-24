@@ -30,8 +30,12 @@ const Profile = () => {
 
   const updateCustomerState = (data) => {
     updateCustomer(data);
-    setPreview(resolveImgUrl(data.profileImg));
+  
+    const imgUrl = resolveImgUrl(data.profileImg);
+    const bust   = `${imgUrl}?t=${Date.now()}`;
+    setPreview(bust);
   };
+  
 
   const handleApiRequest = async (url, options) => {
     try {
