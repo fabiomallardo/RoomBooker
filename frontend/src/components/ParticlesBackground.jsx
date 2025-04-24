@@ -17,22 +17,20 @@ export default function ParticlesBackground() {
           zIndex: -1
         },
         background: {
-          color: {
-            value: "#ffffff"
-          }
+          color: { value: "#121212" }
         },
         particles: {
           number: {
-            value: 80,
+            value: 70,
             density: { enable: true, value_area: 800 }
           },
-          color: { value: "#dc3545" }, 
+          color: { value: "#dc3545" },
           shape: { type: "circle" },
-          opacity: { value: 0.3 },
+          opacity: { value: 0.4 },
           size: { value: 3 },
           move: {
             enable: true,
-            speed: 1,
+            speed: 0.6,
             direction: "none",
             outMode: "bounce"
           }
@@ -47,6 +45,7 @@ export default function ParticlesBackground() {
           }
         }
       }}
+      
     />
   );
 }
