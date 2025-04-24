@@ -30,12 +30,8 @@ const Profile = () => {
 
   const updateCustomerState = (data) => {
     updateCustomer(data);
-  
-    const imgUrl = resolveImgUrl(data.profileImg);
-    const bust   = `${imgUrl}?t=${Date.now()}`;
-    setPreview(bust);
+    setPreview(resolveImgUrl(data.profileImg));
   };
-  
 
   const handleApiRequest = async (url, options) => {
     try {
@@ -104,51 +100,37 @@ const Profile = () => {
     fetchStructures();
   }, [navigate]);
 
-
-const handleProfileUpdate = async (e) => {
-  e.preventDefault();
-
-  const token = localStorage.getItem("token");
-
- 
-  try {
-    const updatedUser = await handleApiRequest(`${API_URL}/me`, {
+  const handleProfileUpdate = async (e) => {
+    e.preventDefault(); 
+    if (!newImage) return;
+  
+    const formDataImg = new FormData();
+    formDataImg.append("profileImg", newImage);
+  
+    const url = `${API_URL}/me/image`;
+    const options = {
       method: "PATCH",
       headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
-      body: JSON.stringify(formData), 
-    });
-    updateCustomerState(updatedUser);
-    toast.success("✅ Dati profilo aggiornati!");
-  } catch (err) {
-    console.error(err);
-  }
-
- 
-  if (newImage) {
+      body: formDataImg,
+    };
+  
     try {
-      const formDataImg = new FormData();
-      formDataImg.append("profileImg", newImage);
-
-      const updatedWithImg = await handleApiRequest(
-        `${API_URL}/me/image`,
-        {
-          method: "PATCH",
-          headers: { Authorization: `Bearer ${token}` },
-          body: formDataImg,
-        }
-      );
-
-      updateCustomerState(updatedWithImg);
+      const res = await fetch(url, options);
+  
+      const text = await res.text();
+  
+      if (!res.ok) throw new Error(`Errore ${res.status}: ${text}`);
+  
+      const data = JSON.parse(text);
+      updateCustomerState(data);
       toast.success("✅ Immagine aggiornata!");
     } catch (err) {
-      console.error(err);
+      console.error("❌ Errore caricamento immagine:", err.message);
+      toast.error("Errore durante il salvataggio dell'immagine");
     }
-  }
-};
-
+  };
   const handleImageSelect = (e) => {
     const file = e.target.files?.[0];
     if (!file || !(file instanceof Blob)) {
