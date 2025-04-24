@@ -83,10 +83,10 @@ export async function editAuthCustomer(req, res) {
 export const editAuthCustomerImage = [
   upload.single("profileImg"),
   async (req, res) => {
+    console.log("🧑‍💻 [DEBUG] req.user:", req.user)
+  console.log("🖼️ [DEBUG] req.file:", req.file)
+  console.log("📦 [DEBUG] req.body:", req.body)
     try {
-      console.log("📥 PATCH /me/image");
-      console.log("🧾 req.file:", req.file);
-      console.log("🔐 req.user:", req.user);
 
       const userId = req.user._id || req.user.customerId;
 
@@ -105,13 +105,10 @@ export const editAuthCustomerImage = [
         return res.status(400).json({ message: "Nessun file ricevuto" });
       }
 
-      // Rimuovi immagine precedente da Cloudinary (se esiste)
       if (customer.cloudinaryId) {
-        console.log("🧹 Rimuovo immagine precedente:", customer.cloudinaryId);
         await cloudinary.uploader.destroy(customer.cloudinaryId);
       }
 
-      // Assicurati che filename o public_id esista
       const newImg = req.file.path;
       const cloudId = req.file.filename || req.file.public_id || req.file.originalname;
 
@@ -125,7 +122,6 @@ export const editAuthCustomerImage = [
 
       await customer.save();
 
-      console.log("✅ Immagine profilo aggiornata");
       return res.status(200).json(customer);
 
     } catch (err) {
