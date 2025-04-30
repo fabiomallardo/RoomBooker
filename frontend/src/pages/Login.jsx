@@ -29,7 +29,7 @@ export default function Login() {
 
       login({ customer: data.customer, token: data.token });
       toast.success(`👋 Ciao ${data.customer.firstName}!`);
-      navigate("/home");
+      /* navigate("/home"); */
     } catch (err) {
       console.error("Login error:", err);
       toast.error(err.message || "Errore durante il login");
