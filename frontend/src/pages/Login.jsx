@@ -29,7 +29,7 @@ export default function Login() {
 
       login({ customer: data.customer, token: data.token });
       toast.success(`👋 Ciao ${data.customer.firstName}!`);
-      /* navigate("/home"); */
+      navigate("/home");
     } catch (err) {
       console.error("Login error:", err);
       toast.error(err.message || "Errore durante il login");
@@ -54,7 +54,7 @@ export default function Login() {
       localStorage.setItem("customer", JSON.stringify(data.customer));
       setTimeout(() => {
         window.location.href = "/home";
-      }, 1500);
+      }, 2000);
     } catch (err) {
       toast.error("❌ Login Google fallito");
       console.error(err);
