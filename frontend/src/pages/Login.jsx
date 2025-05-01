@@ -54,7 +54,7 @@ export default function Login() {
       localStorage.setItem("customer", JSON.stringify(data.customer));
       setTimeout(() => {
         window.location.href = "/home";
-      }, 3000);
+      }, 1500);
     } catch (err) {
       toast.error("❌ Login Google fallito");
       console.error(err);
